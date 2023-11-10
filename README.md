@@ -33,6 +33,8 @@ Embedded Routers
 }
 </pre>
 
+- **GET: /cpt/generate?html** `The Generate function called, rendering html`
+
 - **GET: /cpt/verify** `The Verify function called`
 
 **_query parameters_**
@@ -56,3 +58,7 @@ TODO
 ---
 - **resloader_file** `Load resources from local file system`
 - **resloader_uri** `Load resources from url address`
+
+Bugs
+---
+- **image problem**

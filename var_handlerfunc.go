@@ -12,6 +12,7 @@
 package cpt
 
 import (
+	"github.com/rwscode/cpt/internal/generator"
 	"github.com/rwscode/cpt/middleware"
 	"net/http"
 	"strconv"
@@ -22,6 +23,10 @@ func generateHandlerFunc(middlewares ...http.HandlerFunc) http.HandlerFunc {
 		imageToken, err := defGtr.Generate()
 		if err != nil {
 			writeJSON(w, `{"err":"`+err.Error()+`"}`)
+			return
+		}
+		if r.URL.Query().Has("html") {
+			writeHTML(w, generateHTML(imageToken))
 			return
 		}
 		writeJSON(w, imageToken.JSON())
@@ -57,4 +62,23 @@ func verifyHandlerFunc(middlewares ...http.HandlerFunc) http.HandlerFunc {
 	}
 	middlewares = append(middlewares, h)
 	return walkHandlerFunc(middlewares...)
+}
+
+func generateHTML(token generator.ImageToken) string {
+	return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+</head>
+<body>
+<h4>` + token.Token + `</h4>
+<hr/>
+<img src="` + token.BgImageBase64 + `"/>                 
+<hr/>
+<img src="` + token.BcImageBase64 + `"/>                
+</body>
+</html>`
 }

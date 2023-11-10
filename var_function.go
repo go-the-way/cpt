@@ -27,3 +27,8 @@ func writeJSON(w http.ResponseWriter, str string) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Write([]byte(str))
 }
+
+func writeHTML(w http.ResponseWriter, str string) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	w.Write([]byte(str))
+}
