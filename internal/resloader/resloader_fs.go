@@ -26,17 +26,17 @@ import (
 )
 
 var (
-	//go:embed images/bg/*.png
+	//go:embed images/backgrounds/*.png
 	bundleBgDirFs embed.FS
-	//go:embed images/bc/*.png
+	//go:embed images/blocks/*.png
 	bundleBcDirFs embed.FS
 	logger        = log.New(os.Stdout, "[cpt_resloader] ", log.LstdFlags|log.Lshortfile)
 	once          = &sync.Once{}
 )
 
 const (
-	bundleBgDirFsName = "images/bg"
-	bundleBcDirFsName = "images/bc"
+	bundleBgDirFsName = "images/backgrounds"
+	bundleBcDirFsName = "images/blocks"
 )
 
 type fsResLoader struct {
