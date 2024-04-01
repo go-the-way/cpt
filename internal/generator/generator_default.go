@@ -12,12 +12,13 @@
 package generator
 
 import (
+	"image"
+	"math/rand"
+
 	"github.com/rwscode/cpt/internal/conf"
 	"github.com/rwscode/cpt/internal/pkg"
 	"github.com/rwscode/cpt/internal/resloader"
 	"github.com/rwscode/cpt/internal/verifier"
-	"image"
-	"math/rand"
 )
 
 type defaultGenerator struct {
@@ -39,9 +40,7 @@ func (d *defaultGenerator) Generate() (imageToken ImageToken, err error) {
 }
 
 func (d *defaultGenerator) generateImage() (imageToken ImageToken, err error) {
-	var (
-		bgImg, bcImg, itImg image.Image
-	)
+	var bgImg, bcImg, itImg image.Image
 	token := d.Token(conf.GetTokenLength())
 	if bgImg, err = d.BGImg(); err != nil {
 		return
@@ -56,7 +55,7 @@ func (d *defaultGenerator) generateImage() (imageToken ImageToken, err error) {
 	point := pkg.RandPoint(bgWidth, bgHeight, bcWidth, bcHeight)
 	// 抠图
 	x := point.X
-	newBcImg := image.NewNRGBA(image.Rect(0, 0, bgWidth, bgHeight))
+	newBcImg := image.NewNRGBA(image.Rect(0, 0, bcWidth, bcHeight))
 	pkg.CutOut(bgImg, bcImg, newBcImg, x)
 	// 插入干扰图片
 	position := 0

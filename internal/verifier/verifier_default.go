@@ -42,9 +42,9 @@ func DefaultVerifier() *defaultVerifier {
 
 func (d *defaultVerifier) clean() *defaultVerifier { go d.cleanJob(); return d }
 
-func (d *defaultVerifier) cleanJob() *defaultVerifier {
+func (d *defaultVerifier) cleanJob() {
 	logger.Println("token clean job started")
-	ticker := time.NewTicker(conf.GetTokenClearJonExecTick())
+	ticker := time.NewTicker(conf.GetTokenClearJobExecTick())
 	defer ticker.Stop()
 	for {
 		<-ticker.C
@@ -58,7 +58,6 @@ func (d *defaultVerifier) cleanJob() *defaultVerifier {
 		}
 		d.mu.RUnlock()
 	}
-	return d
 }
 
 func (d *defaultVerifier) Token(len int) (token string) { return pkg.RandomStr(len) }

@@ -26,7 +26,7 @@ var (
 	Verify       = defGtr.Verify
 
 	SetTokenExpiration       = conf.SetTokenExpiration
-	SetTokenClearJonExecTick = conf.SetTokenClearJonExecTick
+	SetTokenClearJobExecTick = conf.SetTokenClearJobExecTick
 	SetTokenDeviation        = conf.SetTokenDeviation
 	SetTokenLength           = conf.SetTokenLength
 	SetResLoaderDefaultOpts  = setResLoaderDefaultOpts

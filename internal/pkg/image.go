@@ -23,10 +23,10 @@ func CutOut(bgImg, bcImg, newBcImg image.Image, x int) {
 	var values [9]color.RGBA64
 	for i := 0; i < bcWidth; i++ {
 		for j := 0; j < bcHeight; j++ {
-			pixel := getRGBA(bgImg, i, j)
+			pixel := getRGBA(bcImg, i, j)
 			if pixel.A > 0 {
 				setRGBA(newBcImg, i, j, getRGBA(bgImg, x+i, j))
-				readNeighborPixel(bgImg, bcWidth, bcHeight, x+i, j, &values)
+				readNeighborPixel(bgImg, x+i, j, &values)
 				setRGBA(bgImg, x+i, j, gaussianBlur(&values))
 			}
 			if i == (bcWidth-1) || j == (bcHeight-1) {
@@ -34,7 +34,10 @@ func CutOut(bgImg, bcImg, newBcImg image.Image, x int) {
 			}
 			rightPixel := getRGBA(bcImg, i+1, j)
 			bottomPixel := getRGBA(bcImg, i, j+1)
-			if (pixel.A > 0 && rightPixel.A == 0) || (pixel.A == 0 && rightPixel.A > 0) || (pixel.A > 0 && bottomPixel.A == 0) || (pixel.A == 0 && bottomPixel.A > 0) {
+			if (pixel.A > 0 && rightPixel.A == 0) ||
+				(pixel.A == 0 && rightPixel.A > 0) ||
+				(pixel.A > 0 && bottomPixel.A == 0) ||
+				(pixel.A == 0 && bottomPixel.A > 0) {
 				white := color.White
 				setRGBA(newBcImg, i, j, white)
 				setRGBA(bgImg, x+i, j, white)
@@ -51,7 +54,7 @@ func Interfere(bgImg, itImg image.Image, x int) {
 		for j := 0; j < itHeight; j++ {
 			pixel := getRGBA(itImg, i, j)
 			if pixel.A > 0 {
-				readNeighborPixel(bgImg, itWidth, itHeight, x+i, j, &values)
+				readNeighborPixel(bgImg, x+i, j, &values)
 				setRGBA(bgImg, x+i, j, gaussianBlur(&values))
 			}
 			if i == (itWidth-1) || j == (itHeight-1) {
@@ -59,7 +62,10 @@ func Interfere(bgImg, itImg image.Image, x int) {
 			}
 			rightPixel := getRGBA(itImg, i+1, j)
 			bottomPixel := getRGBA(itImg, i, j+1)
-			if (pixel.A > 0 && rightPixel.A == 0) || (pixel.A == 0 && rightPixel.A > 0) || (pixel.A > 0 && bottomPixel.A == 0) || (pixel.A == 0 && bottomPixel.A > 0) {
+			if (pixel.A > 0 && rightPixel.A == 0) ||
+				(pixel.A == 0 && rightPixel.A > 0) ||
+				(pixel.A > 0 && bottomPixel.A == 0) ||
+				(pixel.A == 0 && bottomPixel.A > 0) {
 				white := color.White
 				setRGBA(bgImg, x+i, j, white)
 			}
@@ -67,7 +73,7 @@ func Interfere(bgImg, itImg image.Image, x int) {
 	}
 }
 
-func RandPoint(bgWidth, bgHeight, bcWidth, bcHeight int) *image.Point {
+func RandPoint(bgWidth, bgHeight, bcWidth, _ int) *image.Point {
 	wDiff := bgWidth - bcWidth
 	hDiff := bgHeight - bcWidth
 	var x, y int
@@ -84,7 +90,9 @@ func RandPoint(bgWidth, bgHeight, bcWidth, bcHeight int) *image.Point {
 	return &image.Point{X: x, Y: y}
 }
 
-func readNeighborPixel(img image.Image, width, height, x, y int, pixels *[9]color.RGBA64) {
+func readNeighborPixel(img image.Image, x, y int, pixels *[9]color.RGBA64) {
+	width := img.Bounds().Dx()
+	height := img.Bounds().Dy()
 	xStart := x - 1
 	yStart := y - 1
 	current := 0

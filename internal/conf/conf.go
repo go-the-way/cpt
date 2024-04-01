@@ -22,8 +22,8 @@ var (
 
 func GetTokenExpiration() time.Duration           { return tokenExpiration }
 func SetTokenExpiration(expiration time.Duration) { tokenExpiration = expiration }
-func GetTokenClearJonExecTick() time.Duration     { return tokenExpiration }
-func SetTokenClearJonExecTick(tick time.Duration) { tokenClearJobExecTick = tick }
+func GetTokenClearJobExecTick() time.Duration     { return tokenClearJobExecTick }
+func SetTokenClearJobExecTick(tick time.Duration) { tokenClearJobExecTick = tick }
 func GetTokenDeviation() int                      { return tokenDeviation }
 func SetTokenDeviation(deviation int)             { tokenDeviation = deviation }
 func GetTokenLength() int                         { return tokenLength }
