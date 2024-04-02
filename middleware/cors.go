@@ -20,7 +20,7 @@ func Cors() http.HandlerFunc {
 		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 		w.Header().Set("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type")
 		w.Header().Set("Access-Control-Allow-Credentials", "true")
-		if r.Method == "OPTIONS" || r.Method == "HEAD" {
+		if r.Method == http.MethodOptions || r.Method == http.MethodHead {
 			w.WriteHeader(http.StatusNoContent)
 			return
 		}

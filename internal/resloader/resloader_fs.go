@@ -42,7 +42,7 @@ const (
 type fsResLoader struct {
 	bgFs, bcFs         *embed.FS
 	bgFsName, bcFsName string
-	bgs, bcs           []image.Image
+	bgs, bcs           [][]byte
 }
 
 func FsResLoader(bgFs, bcFs *embed.FS, bgFsName, bcFsName string) *fsResLoader {
@@ -56,8 +56,8 @@ func FsResLoaderDefault() *fsResLoader {
 }
 
 func (f *fsResLoader) init() {
-	initFn := func(fs *embed.FS, name string) []image.Image {
-		list := make([]image.Image, 0)
+	initFn := func(fs *embed.FS, name string) [][]byte {
+		list := make([][]byte, 0)
 		files, err := fs.ReadDir(name)
 		if err != nil {
 			logger.Panicln(err)
@@ -70,16 +70,8 @@ func (f *fsResLoader) init() {
 					logger.Panicln(bErr)
 				}
 				if buf != nil {
+					list = append(list, buf)
 					logger.Println("attached: " + fileName)
-					img, _, iErr := image.Decode(bytes.NewReader(buf))
-					// TODO validate image size 310*155
-					if iErr != nil {
-						logger.Panicln(iErr)
-					}
-					if img != nil {
-						list = append(list, img)
-						logger.Println("loaded: " + fileName)
-					}
 				}
 			}
 		}
@@ -97,7 +89,7 @@ func (f *fsResLoader) BGImg() (bgImg image.Image, err error) {
 	}
 	rand.Seed(time.Now().UnixNano())
 	r := rand.Intn(length)
-	bgImg = f.bgs[r]
+	bgImg, _, _ = image.Decode(bytes.NewReader(f.bgs[r]))
 	return
 }
 
@@ -110,7 +102,7 @@ func (f *fsResLoader) BCImg() (bcImg, itImg image.Image, err error) {
 	rand.Seed(time.Now().UnixNano())
 	r := rand.Intn(length)
 	rr := (r + length/2) % (length - 1)
-	bcImg = f.bcs[r]
-	itImg = f.bcs[rr]
+	bcImg, _, _ = image.Decode(bytes.NewReader(f.bcs[r]))
+	itImg, _, _ = image.Decode(bytes.NewReader(f.bcs[rr]))
 	return
 }

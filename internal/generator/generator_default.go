@@ -68,9 +68,7 @@ func (d *defaultGenerator) generateImage() (imageToken ImageToken, err error) {
 	}
 	// 干扰图
 	pkg.Interfere(bgImg, itImg, position)
-	var (
-		bgImageBase64, bcImageBase64 string
-	)
+	var bgImageBase64, bcImageBase64 string
 	if bgImageBase64, err = pkg.Image2Base64Img(bgImg); err != nil {
 		return
 	}
