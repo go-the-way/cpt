@@ -79,3 +79,11 @@ func (d *defaultVerifier) Verify(token string, x int) bool {
 	logger.Printf("token: %s x: %d ok: %v eAt.x: %d b: %v deviation: %d\n", token, x, ok, eAt.x, b, deviation)
 	return ok && b
 }
+
+func (d *defaultVerifier) Delete(token string) {
+	d.mu.Lock()
+	defer d.mu.Unlock()
+	delete(d.m, token)
+	logger.Println("deleted:", token)
+	return
+}

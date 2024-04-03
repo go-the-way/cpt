@@ -24,6 +24,7 @@ var (
 	defGtr       = generator.DefaultGenerator(defResLoader, defVerifier)
 	Generate     = defGtr.Generate
 	Verify       = defGtr.Verify
+	Delete       = defGtr.Delete
 
 	SetTokenExpiration       = conf.SetTokenExpiration
 	SetTokenClearJobExecTick = conf.SetTokenClearJobExecTick

@@ -8,12 +8,13 @@ Features
 Functions
 ---
 - **SetTokenExpiration** `Set token expiration`
-- **SetTokenClearJonExecTick** `Set token clear job ticker durtion`
+- **SetTokenClearJobExecTick** `Set token clear job ticker durtion`
 - **SetTokenDeviation** `Set token deviation in px`
 - **SetTokenLength** `Set token generate length`
 - **SetResLoaderDefaultOpts** `Set default res loader opts`
 - **Generate** `Generate the image token in base64`
 - **Verify** `Verify the image token & xs`
+- **Delete** `Delete the image token`
 - **WrappedGenerateHandlerFunc** `Get the wrapped generate handler func`
 - **WrappedVerifyHandlerFunc** `Get the wrapped verify handler func`
 - **Serve** `Serve embedded http server`
@@ -39,8 +40,8 @@ Embedded Routers
 
 **_query parameters_**
 <pre>
-?captcha_token=
-?captcha_xs=
+?token=
+?x=
 </pre>
 
 **_response error_**
@@ -53,12 +54,7 @@ Embedded Routers
 {"verified":"ok"}
 </pre>
 
-
 TODO
 ---
 - **resloader_file** `Load resources from local file system`
 - **resloader_uri** `Load resources from url address`
-
-Bugs
----
-- **image problem**

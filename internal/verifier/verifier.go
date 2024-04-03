@@ -15,4 +15,5 @@ type Verifier interface {
 	Token(len int) (token string)
 	Store(token string, x int)
 	Verify(token string, x int) (ok bool)
+	Delete(token string)
 }
