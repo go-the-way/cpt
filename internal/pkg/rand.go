@@ -17,7 +17,7 @@ import (
 	"time"
 )
 
-const symbols = "012345678abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-*/"
+const symbols = "012345678abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 func RandomStr(length int) (str string) {
 	rand.Seed(time.Now().UnixNano())

@@ -48,7 +48,7 @@ func (d *defaultVerifier) cleanJob() {
 	defer ticker.Stop()
 	for {
 		<-ticker.C
-		d.mu.RLock()
+		d.mu.Lock()
 		for k, v := range d.m {
 			// expired
 			if time.Now().After(v.expire) {
@@ -56,7 +56,7 @@ func (d *defaultVerifier) cleanJob() {
 				logger.Println("expired: " + k)
 			}
 		}
-		d.mu.RUnlock()
+		d.mu.Unlock()
 	}
 }
 
@@ -66,13 +66,16 @@ func (d *defaultVerifier) Store(token string, x int) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
 	expiration := time.Now().Add(conf.GetTokenExpiration())
-	d.m[token] = expireAt{x, expiration}
-	logger.Println("stored: " + token)
+	d.m[token] = expireAt{x: x, expire: expiration}
+	logger.Printf("stored: "+token+" x: %d\n", x)
 }
 
 func (d *defaultVerifier) Verify(token string, x int) bool {
 	d.mu.RLock()
 	defer d.mu.RUnlock()
 	eAt, ok := d.m[token]
-	return ok && (int(math.Abs(float64(eAt.x-x))) <= conf.GetTokenDeviation())
+	deviation := conf.GetTokenDeviation()
+	b := int(math.Abs(float64(eAt.x-x))) <= deviation
+	logger.Printf("token: %s x: %d ok: %v eAt.x: %d b: %v deviation: %d\n", token, x, ok, eAt.x, b, deviation)
+	return ok && b
 }

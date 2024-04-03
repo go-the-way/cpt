@@ -20,6 +20,9 @@ import (
 
 func generateHandlerFunc(middlewares ...http.HandlerFunc) http.HandlerFunc {
 	h := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodOptions || r.Method == http.MethodHead {
+			return
+		}
 		imageToken, err := defGtr.Generate()
 		if err != nil {
 			writeJSON(w, `{"err":"`+err.Error()+`"}`)
@@ -38,19 +41,22 @@ func generateHandlerFunc(middlewares ...http.HandlerFunc) http.HandlerFunc {
 
 func verifyHandlerFunc(middlewares ...http.HandlerFunc) http.HandlerFunc {
 	h := func(w http.ResponseWriter, r *http.Request) {
-		captchaToken := r.URL.Query().Get("captcha_token")
-		if captchaToken == "" {
-			writeJSON(w, `{"err":"missing captcha_token"}`)
+		if r.Method == http.MethodOptions || r.Method == http.MethodHead {
 			return
 		}
-		captchaXStr := r.URL.Query().Get("captcha_xs")
+		captchaToken := r.URL.Query().Get("token")
+		if captchaToken == "" {
+			writeJSON(w, `{"err":"missing token"}`)
+			return
+		}
+		captchaXStr := r.URL.Query().Get("x")
 		if captchaXStr == "" {
-			writeJSON(w, `{"err":"missing captcha_xs"}`)
+			writeJSON(w, `{"err":"missing x"}`)
 			return
 		}
 		captchaX, err := strconv.Atoi(captchaXStr)
 		if err != nil {
-			writeJSON(w, `{"err":"invalid captcha_xs"}`)
+			writeJSON(w, `{"err":"invalid x"}`)
 			return
 		}
 		if ok := Verify(captchaToken, captchaX); !ok {
