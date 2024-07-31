@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 
-	"github.com/rwscode/cpt"
+	"github.com/go-the-way/cpt"
 )
 
 var (

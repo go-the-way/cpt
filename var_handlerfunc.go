@@ -12,8 +12,8 @@
 package cpt
 
 import (
-	"github.com/rwscode/cpt/internal/generator"
-	"github.com/rwscode/cpt/middleware"
+	"github.com/go-the-way/cpt/internal/generator"
+	"github.com/go-the-way/cpt/middleware"
 	"net/http"
 	"strconv"
 )

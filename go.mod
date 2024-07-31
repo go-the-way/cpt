@@ -1,3 +1,3 @@
-module github.com/rwscode/cpt
+module github.com/go-the-way/cpt
 
 go 1.18

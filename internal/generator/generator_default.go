@@ -15,10 +15,10 @@ import (
 	"image"
 	"math/rand"
 
-	"github.com/rwscode/cpt/internal/conf"
-	"github.com/rwscode/cpt/internal/pkg"
-	"github.com/rwscode/cpt/internal/resloader"
-	"github.com/rwscode/cpt/internal/verifier"
+	"github.com/go-the-way/cpt/internal/conf"
+	"github.com/go-the-way/cpt/internal/pkg"
+	"github.com/go-the-way/cpt/internal/resloader"
+	"github.com/go-the-way/cpt/internal/verifier"
 )
 
 type defaultGenerator struct {

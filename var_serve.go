@@ -12,7 +12,7 @@
 package cpt
 
 import (
-	"github.com/rwscode/cpt/middleware"
+	"github.com/go-the-way/cpt/middleware"
 	"log"
 	"net/http"
 	"os"

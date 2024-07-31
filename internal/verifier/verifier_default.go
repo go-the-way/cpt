@@ -12,14 +12,14 @@
 package verifier
 
 import (
-	"github.com/rwscode/cpt/internal/pkg"
+	"github.com/go-the-way/cpt/internal/pkg"
 	"log"
 	"math"
 	"os"
 	"sync"
 	"time"
 
-	"github.com/rwscode/cpt/internal/conf"
+	"github.com/go-the-way/cpt/internal/conf"
 )
 
 var (

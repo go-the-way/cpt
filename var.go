@@ -12,10 +12,10 @@
 package cpt
 
 import (
-	"github.com/rwscode/cpt/internal/conf"
-	"github.com/rwscode/cpt/internal/generator"
-	"github.com/rwscode/cpt/internal/resloader"
-	"github.com/rwscode/cpt/internal/verifier"
+	"github.com/go-the-way/cpt/internal/conf"
+	"github.com/go-the-way/cpt/internal/generator"
+	"github.com/go-the-way/cpt/internal/resloader"
+	"github.com/go-the-way/cpt/internal/verifier"
 )
 
 var (

@@ -14,7 +14,7 @@ package cpt
 import (
 	"embed"
 
-	"github.com/rwscode/cpt/internal/resloader"
+	"github.com/go-the-way/cpt/internal/resloader"
 )
 
 func setResLoaderDefaultOpts(bgFs, bcFs *embed.FS, bgFsName, bcFsName string) {
