@@ -12,13 +12,13 @@
 package verifier
 
 import (
-	"github.com/go-the-way/cpt/internal/pkg"
 	"log"
 	"math"
 	"os"
 	"sync"
 	"time"
-
+	
+	"github.com/go-the-way/cpt/internal/pkg"
 	"github.com/go-the-way/cpt/internal/conf"
 )
 
@@ -85,5 +85,4 @@ func (d *defaultVerifier) Delete(token string) {
 	defer d.mu.Unlock()
 	delete(d.m, token)
 	logger.Println("deleted:", token)
-	return
 }

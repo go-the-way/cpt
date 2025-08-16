@@ -12,10 +12,11 @@
 package cpt
 
 import (
-	"github.com/go-the-way/cpt/middleware"
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/go-the-way/cpt/middleware"
 )
 
 func serve(addr string) { ServeRouter(addr, "/cpt/generate", "/cpt/verify") }

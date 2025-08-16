@@ -12,10 +12,11 @@
 package cpt
 
 import (
-	"github.com/go-the-way/cpt/internal/generator"
-	"github.com/go-the-way/cpt/middleware"
 	"net/http"
 	"strconv"
+
+	"github.com/go-the-way/cpt/internal/generator"
+	"github.com/go-the-way/cpt/middleware"
 )
 
 func generateHandlerFunc(middlewares ...http.HandlerFunc) http.HandlerFunc {
@@ -33,7 +34,6 @@ func generateHandlerFunc(middlewares ...http.HandlerFunc) http.HandlerFunc {
 			return
 		}
 		writeJSON(w, imageToken.JSON())
-		return
 	})
 	middlewares = append(middlewares, middleware.GzipHandler(h).ServeHTTP)
 	return walkHandlerFunc(middlewares...)
@@ -64,7 +64,6 @@ func verifyHandlerFunc(middlewares ...http.HandlerFunc) http.HandlerFunc {
 			return
 		}
 		writeJSON(w, `{"verified":"ok"}`)
-		return
 	}
 	middlewares = append(middlewares, h)
 	return walkHandlerFunc(middlewares...)

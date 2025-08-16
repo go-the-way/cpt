@@ -11,9 +11,7 @@
 
 package cpt
 
-import (
-	"net/http"
-)
+import "net/http"
 
 func walkHandlerFunc(handlers ...http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
